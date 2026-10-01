@@ -10,7 +10,7 @@ import { Rsvp } from './components/rsvp/rsvp';
 
 @Component({
   selector: 'app-root',
-  imports: [Hero, Invitation, Detail, Gallery, Countdown, Location, Rsvp],
+  imports: [Hero, Invitation, Detail, Gallery, Countdown, Rsvp],
   templateUrl: './app.html',
   styleUrl: './app.css',
 })
