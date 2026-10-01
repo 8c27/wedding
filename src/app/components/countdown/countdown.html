@@ -1,0 +1,76 @@
+<section class="relative overflow-hidden bg-[#292824] px-6 py-28 text-white md:py-36">
+  <!-- Decorative background -->
+  <div class="pointer-events-none absolute inset-0 flex items-center justify-center">
+    <span class="whitespace-nowrap font-serif text-[100px] text-white/[0.025] md:text-[200px]"> FOREVER </span>
+  </div>
+
+  <div class="relative z-10 mx-auto max-w-5xl text-center">
+    <!-- Header -->
+
+    <p class="mb-6 text-[10px] tracking-[0.45em] text-white/50 md:text-xs">COUNTING DOWN</p>
+
+    <h2 class="font-serif text-4xl font-light tracking-[0.04em] md:text-5xl">Until We Say “I Do”</h2>
+
+    <!-- Normal countdown -->
+
+    @if (!isWeddingDay()) {
+      <div class="mx-auto mt-16 grid max-w-4xl grid-cols-4 md:mt-20">
+        <!-- DAYS -->
+
+        <div class="border-r border-white/15">
+          <p class="font-serif text-4xl font-light md:text-6xl">
+            {{ days() }}
+          </p>
+
+          <p class="mt-4 text-[8px] tracking-[0.3em] text-white/45 md:text-[10px]">DAYS</p>
+        </div>
+
+        <!-- HOURS -->
+
+        <div class="border-r border-white/15">
+          <p class="font-serif text-4xl font-light md:text-6xl">
+            {{ hours() }}
+          </p>
+
+          <p class="mt-4 text-[8px] tracking-[0.3em] text-white/45 md:text-[10px]">HOURS</p>
+        </div>
+
+        <!-- MINUTES -->
+
+        <div class="border-r border-white/15">
+          <p class="font-serif text-4xl font-light md:text-6xl">
+            {{ minutes() }}
+          </p>
+
+          <p class="mt-4 text-[8px] tracking-[0.3em] text-white/45 md:text-[10px]">MIN</p>
+        </div>
+
+        <!-- SECONDS -->
+
+        <div>
+          <p class="font-serif text-4xl font-light md:text-6xl">
+            {{ seconds() }}
+          </p>
+
+          <p class="mt-4 text-[8px] tracking-[0.3em] text-white/45 md:text-[10px]">SEC</p>
+        </div>
+      </div>
+    }
+
+    <!-- Wedding day -->
+
+    @if (isWeddingDay()) {
+      <div class="mt-16">
+        <p class="font-serif text-3xl font-light italic md:text-4xl">Today is our day.</p>
+
+        <p class="mt-5 text-xs tracking-[0.3em] text-white/50">DECEMBER 06 · 2026</p>
+      </div>
+    }
+
+    <!-- Bottom -->
+
+    <div class="mx-auto mt-16 h-px w-10 bg-white/30"></div>
+
+    <p class="mt-7 text-xs tracking-[0.3em] text-white/45">2026 · 12 · 06</p>
+  </div>
+</section>

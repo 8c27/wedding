@@ -1,0 +1,252 @@
+<section id="rsvp" class="relative bg-white px-6 py-28 md:py-40">
+  <!-- =========================================================
+       SENDING OVERLAY
+       ========================================================= -->
+
+  @if (submitting()) {
+    <div
+      class="fixed inset-0 z-[9999] flex items-center justify-center bg-[#F7F5F0]/95 px-6 backdrop-blur-sm"
+      role="status"
+      aria-live="polite"
+      aria-label="正在送出出席回覆"
+    >
+      <div class="text-center">
+        <!-- Loading dots -->
+        <div class="mx-auto mb-10 flex items-center justify-center gap-2">
+          <span class="h-1.5 w-1.5 animate-bounce rounded-full bg-[#292824]" style="animation-delay: 0ms"></span>
+
+          <span class="h-1.5 w-1.5 animate-bounce rounded-full bg-[#292824]" style="animation-delay: 150ms"></span>
+
+          <span class="h-1.5 w-1.5 animate-bounce rounded-full bg-[#292824]" style="animation-delay: 300ms"></span>
+        </div>
+
+        <p class="mb-5 text-[10px] tracking-[0.45em] text-[#99958D]">SENDING YOUR REPLY</p>
+
+        <h2 class="font-serif text-3xl font-light tracking-[0.04em] text-[#292824] md:text-4xl">正在送出您的回覆</h2>
+
+        <div class="mx-auto my-8 h-px w-10 bg-[#C9C4BA]"></div>
+
+        <p class="text-sm font-light leading-8 tracking-[0.12em] text-[#77736C]">
+          請稍候片刻
+          <br />
+          資料正在傳送中...
+        </p>
+      </div>
+    </div>
+  }
+
+  <div class="mx-auto max-w-2xl">
+    <!-- =========================================================
+         RSVP FORM
+         ========================================================= -->
+
+    @if (!submitted()) {
+      <!-- Header -->
+
+      <div class="mb-16 text-center">
+        <p class="mb-6 text-[10px] tracking-[0.45em] text-[#99958D] md:text-xs">ATTENDANCE</p>
+
+        <h2 class="font-serif text-4xl font-light tracking-[0.04em] text-[#292824] md:text-5xl">出席回覆</h2>
+
+        <p class="mt-6 text-sm font-light leading-7 tracking-[0.1em] text-[#77736C]">
+          為了讓我們準備最合適的安排，
+          <br />
+          請留下您的出席資訊。
+        </p>
+      </div>
+
+      <!-- Form -->
+
+      <form [formGroup]="form" (ngSubmit)="submit()" class="space-y-12">
+        <!-- =====================================================
+             NAME
+             ===================================================== -->
+
+        <div>
+          <label for="name" class="mb-4 block text-[10px] tracking-[0.3em] text-[#77736C]"> YOUR NAME * </label>
+
+          <input
+            id="name"
+            type="text"
+            formControlName="name"
+            placeholder="請輸入姓名"
+            autocomplete="name"
+            class="w-full border-0 border-b border-[#D8D3C9] bg-transparent px-0 py-4 text-base text-[#292824] outline-none transition-colors placeholder:text-[#BBB7AF] focus:border-[#292824]"
+          />
+
+          @if (form.controls.name.invalid && form.controls.name.touched) {
+            <p class="mt-3 text-xs text-red-700/70">請輸入您的姓名</p>
+          }
+        </div>
+
+        <!-- =====================================================
+             SIDE
+             ===================================================== -->
+
+        <div>
+          <p class="mb-5 text-[10px] tracking-[0.3em] text-[#77736C]">GUEST OF *</p>
+
+          <div class="grid grid-cols-2 gap-3">
+            <!-- Groom -->
+
+            <label class="cursor-pointer">
+              <input type="radio" value="groom" formControlName="side" class="peer sr-only" />
+
+              <div
+                class="border border-[#D8D3C9] px-5 py-5 text-center text-sm tracking-[0.1em] text-[#77736C] transition-all duration-300 peer-checked:border-[#292824] peer-checked:bg-[#292824] peer-checked:text-white"
+              >
+                男方親友
+              </div>
+            </label>
+
+            <!-- Bride -->
+
+            <label class="cursor-pointer">
+              <input type="radio" value="bride" formControlName="side" class="peer sr-only" />
+
+              <div
+                class="border border-[#D8D3C9] px-5 py-5 text-center text-sm tracking-[0.1em] text-[#77736C] transition-all duration-300 peer-checked:border-[#292824] peer-checked:bg-[#292824] peer-checked:text-white"
+              >
+                女方親友
+              </div>
+            </label>
+          </div>
+        </div>
+
+        <!-- =====================================================
+             ATTENDANCE
+             ===================================================== -->
+
+        <div>
+          <p class="mb-5 text-[10px] tracking-[0.3em] text-[#77736C]">ATTENDANCE *</p>
+
+          <div class="grid grid-cols-2 gap-3">
+            <!-- Attending -->
+
+            <label class="cursor-pointer">
+              <input type="radio" value="attending" formControlName="attendance" class="peer sr-only" />
+
+              <div
+                class="border border-[#D8D3C9] px-5 py-5 text-center text-sm tracking-[0.1em] text-[#77736C] transition-all duration-300 peer-checked:border-[#292824] peer-checked:bg-[#292824] peer-checked:text-white"
+              >
+                欣然出席
+              </div>
+            </label>
+
+            <!-- Declined -->
+
+            <label class="cursor-pointer">
+              <input type="radio" value="declined" formControlName="attendance" class="peer sr-only" />
+
+              <div
+                class="border border-[#D8D3C9] px-5 py-5 text-center text-sm tracking-[0.1em] text-[#77736C] transition-all duration-300 peer-checked:border-[#292824] peer-checked:bg-[#292824] peer-checked:text-white"
+              >
+                不克出席
+              </div>
+            </label>
+          </div>
+        </div>
+
+        <!-- =====================================================
+             GUEST COUNT
+             ===================================================== -->
+
+        @if (isAttending) {
+          <div>
+            <label for="guestCount" class="mb-4 block text-[10px] tracking-[0.3em] text-[#77736C]">
+              NUMBER OF GUESTS
+            </label>
+
+            <select
+              id="guestCount"
+              formControlName="guestCount"
+              class="w-full border-0 border-b border-[#D8D3C9] bg-transparent py-4 text-base text-[#292824] outline-none transition-colors focus:border-[#292824]"
+            >
+              <option [ngValue]="1">1 位</option>
+              <option [ngValue]="2">2 位</option>
+              <option [ngValue]="3">3 位</option>
+              <option [ngValue]="4">4 位</option>
+              <option [ngValue]="5">5 位</option>
+              <option [ngValue]="6">6 位</option>
+            </select>
+          </div>
+        }
+
+        <!-- =====================================================
+             MESSAGE
+             ===================================================== -->
+
+        <div>
+          <label for="message" class="mb-4 block text-[10px] tracking-[0.3em] text-[#77736C]"> MESSAGE </label>
+
+          <textarea
+            id="message"
+            formControlName="message"
+            rows="4"
+            maxlength="200"
+            placeholder="想對我們說的話..."
+            class="w-full resize-none border border-[#D8D3C9] bg-transparent p-4 text-sm leading-7 text-[#292824] outline-none transition-colors placeholder:text-[#BBB7AF] focus:border-[#292824]"
+          ></textarea>
+
+          <p class="mt-3 text-right text-[9px] tracking-[0.15em] text-[#AAA69E]">MAX 200</p>
+        </div>
+
+        <!-- =====================================================
+             SUBMIT
+             ===================================================== -->
+
+        <div class="pt-5 text-center">
+          <button
+            type="submit"
+            [disabled]="submitting()"
+            class="group inline-flex min-w-[230px] items-center justify-center gap-5 bg-[#292824] px-10 py-5 text-[10px] tracking-[0.35em] text-white transition-all duration-300 hover:bg-[#47443E] disabled:cursor-not-allowed disabled:opacity-50"
+          >
+            @if (submitting()) {
+              SENDING...
+            } @else {
+              送出回覆
+
+              <span class="transition-transform duration-300 group-hover:translate-x-1"> → </span>
+            }
+          </button>
+
+          <!-- Error -->
+
+          @if (submitError()) {
+            <div class="mt-6">
+              <p class="text-xs leading-6 tracking-[0.08em] text-red-700/70">送出失敗，請稍後再試。</p>
+
+              <p class="mt-1 text-[10px] tracking-[0.08em] text-[#99958D]">您填寫的資料仍會保留</p>
+            </div>
+          }
+        </div>
+      </form>
+    }
+
+    <!-- =========================================================
+         SUCCESS
+         ========================================================= -->
+
+    @if (submitted()) {
+      <div class="flex min-h-[420px] flex-col items-center justify-center py-16 text-center">
+        <p class="mb-6 text-[10px] tracking-[0.45em] text-[#99958D] md:text-xs">THANK YOU</p>
+
+        <h2 class="font-serif text-4xl font-light italic text-[#292824] md:text-5xl">Thank You.</h2>
+
+        <div class="mx-auto my-8 h-px w-10 bg-[#C9C4BA]"></div>
+
+        <p class="text-sm font-light leading-8 tracking-[0.12em] text-[#77736C]">
+          我們已收到您的回覆。
+          <br />
+          謝謝您分享這份喜悅。
+        </p>
+
+        <div class="mt-10 text-center">
+          <p class="font-serif text-sm italic tracking-[0.08em] text-[#99958D]">See you on our special day.</p>
+
+          <p class="mt-3 text-[10px] tracking-[0.35em] text-[#77736C]">12 · 06</p>
+        </div>
+      </div>
+    }
+  </div>
+</section>
